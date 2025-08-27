@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乳首开发完整教程 - 从零基础到高级体验</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #ff6b35;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
+        }
+
+        .warning-box h3 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .warning-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .warning-box li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: #2d3748;
+        }
+
+        .warning-box li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+
+        .chapters-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .chapter-section {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .chapter-number {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-right: 20px;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .section-title {
+            color: #5a67d8;
+            font-size: 1.5em;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1em;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #4facfe;
+        }
+
+        .lesson-number {
+            background: #5a67d8;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            color: #2d3748;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .lesson-description {
+            color: #4a5568;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .footer p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .chapter-section {
+                padding: 20px;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .chapter-number {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            border-left: 4px solid #3182ce;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .important-note h4 {
+            color: #2b6cb0;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .important-note p {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌟 乳首开发完整教程</h1>
+            <p class="subtitle">从零基础到高级体验的全方位指南</p>
+        </header>
+
+        <div class="warning-box">
+            <h3>🔞 重要声明</h3>
+            <ul>
+                <li>本教程仅供成年人学习参考使用</li>
+                <li>请在充分了解风险的基础上谨慎实践</li>
+                <li>如出现任何身体不适，请立即停止并寻求医疗建议</li>
+                <li>本内容不构成医疗建议，个人体验因人而异</li>
+                <li>安全第一，循序渐进，记录训练进度</li>
+            </ul>
+        </div>
+
+
+
+        <div class="chapters-container">
+            <!-- 第一章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">1</div>
+                    <div>
+                        <h2 class="section-title">认知建设</h2>
+                        <p class="section-subtitle">重塑对乳首快感的理解</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-01.html'">
+                        <div class="lesson-number">1</div>
+                        <h3 class="lesson-title">乳首高潮是什么？能带来什么感受？</h3>
+                        <p class="lesson-description">快感类型分析、与射精高潮的区别、科学性验证</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-02.html'">
+                        <div class="lesson-number">2</div>
+                        <h3 class="lesson-title">为什么很多男性乳头"不敏感"？</h3>
+                        <p class="lesson-description">发育路径差异、文化压抑因素、身体屏蔽机制</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-03.html'">
+                        <div class="lesson-number">3</div>
+                        <h3 class="lesson-title">乳首高潮的快感来源于哪里？</h3>
+                        <p class="lesson-description">神经机制解析、迷走神经通路、心理放松的影响</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-04.html'">
+                        <div class="lesson-number">4</div>
+                        <h3 class="lesson-title">开发的三个基本阶段</h3>
+                        <p class="lesson-description">敏感开发、性感开发、干潮强化的完整时间规划</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-05.html'">
+                        <div class="lesson-number">5</div>
+                        <h3 class="lesson-title">风险认知与心理建设</h3>
+                        <p class="lesson-description">不可逆性说明、身心变化预期、知情同意原则</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">2</div>
+                    <div>
+                        <h2 class="section-title">准备阶段</h2>
+                        <p class="section-subtitle">快感启动的前置条件</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-06.html'">
+                        <div class="lesson-number">6</div>
+                        <h3 class="lesson-title">正确的心态准备</h3>
+                        <p class="lesson-description">消除羞耻感、建立身体好奇心、避开干潮追求陷阱</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-07.html'">
+                        <div class="lesson-number">7</div>
+                        <h3 class="lesson-title">环境设置和前戏辅助</h3>
+                        <p class="lesson-description">理想环境布置、全身快感激活、渐进式爱抚技巧</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-08.html'">
+                        <div class="lesson-number">8</div>
+                        <h3 class="lesson-title">判断乳头类型与初始策略</h3>
+                        <p class="lesson-description">敏感型、木头型、延迟启动型的识别与应对</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第三章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">3</div>
+                    <div>
+                        <h2 class="section-title">激活训练</h2>
+                        <p class="section-subtitle">打开乳首感官通道</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-09.html'">
+                        <div class="lesson-number">9</div>
+                        <h3 class="lesson-title">敏感度开发的核心原理</h3>
+                        <p class="lesson-description">快感公式解析、避开强度陷阱、无菌性炎症机制</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-10.html'">
+                        <div class="lesson-number">10</div>
+                        <h3 class="lesson-title">四种基本手法</h3>
+                        <p class="lesson-description">回转式、轻擦式、滚动式、抓挠式的详细操作</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-11.html'">
+                        <div class="lesson-number">11</div>
+                        <h3 class="lesson-title">基础开发方法</h3>
+                        <p class="lesson-description">手动开发实战、训练周期安排、进度记录方法</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第四章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">4</div>
+                    <div>
+                        <h2 class="section-title">快感连结</h2>
+                        <p class="section-subtitle">建立乳首-高潮通路</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-12.html'">
+                        <div class="lesson-number">12</div>
+                        <h3 class="lesson-title">乳头快感连结到性兴奋通道</h3>
+                        <p class="lesson-description">呼吸配合、边缘训练、马眼感受联动技巧</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-13.html'">
+                        <div class="lesson-number">13</div>
+                        <h3 class="lesson-title">阴茎链接法（重要技巧）</h3>
+                        <p class="lesson-description">同步自慰技巧、射精时停止触摸的关键原则</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-14.html'">
+                        <div class="lesson-number">14</div>
+                        <h3 class="lesson-title">组合技法实战</h3>
+                        <p class="lesson-description">滚动式主导流程、会阴+乳首组合、适当休息重要性</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-15.html'">
+                        <div class="lesson-number">15</div>
+                        <h3 class="lesson-title">乳首干潮的初级体验识别</h3>
+                        <p class="lesson-description">身体反应识别、主观感受分析、体验确认方法</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第五章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">5</div>
+                    <div>
+                        <h2 class="section-title">失误排查</h2>
+                        <p class="section-subtitle">常见问题处理方案</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-16.html'">
+                        <div class="lesson-number">16</div>
+                        <h3 class="lesson-title">七大常见陷阱及对策</h3>
+                        <p class="lesson-description">强度陷阱、感度陷阱、变化陷阱、干潮追求陷阱等</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-17.html'">
+                        <div class="lesson-number">17</div>
+                        <h3 class="lesson-title">越玩越木的处理方法</h3>
+                        <p class="lesson-description">停止刺激恢复、轻柔重启、改变刺激模式</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-18.html'">
+                        <div class="lesson-number">18</div>
+                        <h3 class="lesson-title">一边有感觉，一边没反应？</h3>
+                        <p class="lesson-description">强-弱侧乳头切换训练法、平衡发展策略</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-19.html'">
+                        <div class="lesson-number">19</div>
+                        <h3 class="lesson-title">身体不适的识别与处理</h3>
+                        <p class="lesson-description">训练性炎症识别、过度刺激处理、护理方案</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第六章 -->
+            <div class="chapter-section">
+                <div class="section-header">
+                    <div class="chapter-number">6</div>
+                    <div>
+                        <h2 class="section-title">进阶探索</h2>
+                        <p class="section-subtitle">选修内容·深度体验</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-item" onclick="window.location.href='chapter-20.html'">
+                        <div class="lesson-number">20</div>
+                        <h3 class="lesson-title">乳首+前列腺组合高潮</h3>
+                        <p class="lesson-description">会阴刺激协同效应、安全叠加训练方案</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-21.html'">
+                        <div class="lesson-number">21</div>
+                        <h3 class="lesson-title">平台期乳首高潮技巧</h3>
+                        <p class="lesson-description">意念控制、呼吸调节、微弱接触高潮法</p>
+                    </div>
+                    <div class="lesson-item" onclick="window.location.href='chapter-22.html'">
+                        <div class="lesson-number">22</div>
+                        <h3 class="lesson-title">心理整合与自我接纳</h3>
+                        <p class="lesson-description">羞耻性快感处理、脱性别化探索意义、自我疗愈</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="important-note">
+            <h4>📚 学习建议</h4>
+            <p>建议按章节顺序学习，每章理论与实践相结合。前五章为必修内容，第六章为进阶选修。记住，每个人的身体反应不同，找到适合自己的节奏和方法最重要。安全第一，享受探索身体潜能的美妙旅程。</p>
+        </div>
+
+        <footer class="footer">
+            <h3>🎯 重要提醒</h3>
+            <p><strong>安全第一</strong>：任何不适立即停止，必要时寻求医疗建议</p>
+            <p><strong>循序渐进</strong>：不要急于求成，给身体适应的时间</p>
+            <p><strong>记录进度</strong>：建议保持简单的训练日记</p>
+            <p><strong>个体差异</strong>：每个人的反应和进度都不同，找到适合自己的节奏</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.chapter-section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    section.style.transition = 'all 0.8s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // 课程卡片悬停效果
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

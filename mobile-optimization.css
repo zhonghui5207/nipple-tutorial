@@ -1,0 +1,290 @@
+/* 移动端优化样式 */
+
+/* 平板设备 (768px以下) */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 12px 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .nav-bar a {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .nav-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .chapter-title {
+        font-size: 1.6em;
+        line-height: 1.2;
+    }
+
+    .chapter-subtitle {
+        font-size: 1em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+        margin: 30px 0 15px 0;
+        padding-left: 20px;
+    }
+
+    h2::before {
+        font-size: 0.8em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+        margin: 25px 0 12px 0;
+    }
+
+    p {
+        font-size: 1em;
+        line-height: 1.6;
+    }
+
+    /* 卡片样式优化 */
+    .experience-card,
+    .stage-card,
+    .pathway-card,
+    .reason-card,
+    .highlight-box,
+    .important-concept,
+    .key-insight {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .experience-card h4,
+    .stage-card h3,
+    .pathway-card h3,
+    .reason-card h3,
+    .highlight-box h3,
+    .important-concept h3,
+    .key-insight h4 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+
+    .metaphor-box {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .metaphor-box::before {
+        font-size: 1.2em;
+        top: 10px;
+        right: 15px;
+    }
+
+    .comparison-table,
+    .timeline-section {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .quote {
+        padding: 15px 15px 15px 20px;
+        font-size: 1em;
+    }
+
+    .section-divider {
+        margin: 30px 0;
+    }
+
+    /* 网格布局优化 */
+    .experience-grid,
+    .lessons-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 表格优化 */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+
+    th, td {
+        padding: 12px 8px;
+    }
+}
+
+/* 手机设备 (480px以下) */
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+
+    .content {
+        padding: 15px 12px;
+    }
+
+    .chapter-title {
+        font-size: 1.4em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        padding-left: 18px;
+    }
+
+    .experience-card,
+    .stage-card,
+    .pathway-card,
+    .reason-card,
+    .highlight-box,
+    .important-concept,
+    .key-insight {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .nav-bar {
+        padding: 10px 15px;
+    }
+
+    .navigation {
+        padding: 15px;
+    }
+
+    .nav-button {
+        padding: 8px 16px;
+        font-size: 0.85em;
+    }
+
+    /* 更小的字体 */
+    p {
+        font-size: 0.95em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    /* 表格进一步优化 */
+    table {
+        font-size: 0.8em;
+    }
+
+    th, td {
+        padding: 8px 6px;
+    }
+}
+
+/* 超小屏幕 (320px以下) */
+@media (max-width: 320px) {
+    .container {
+        padding: 5px;
+    }
+
+    .content {
+        padding: 12px 8px;
+    }
+
+    .chapter-title {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.1em;
+        padding-left: 15px;
+    }
+
+    .experience-card,
+    .stage-card,
+    .pathway-card,
+    .reason-card,
+    .highlight-box,
+    .important-concept,
+    .key-insight {
+        padding: 12px;
+        margin: 12px 0;
+    }
+
+    .nav-bar {
+        padding: 8px 12px;
+    }
+
+    .navigation {
+        padding: 12px;
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .nav-bar {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .navigation {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .chapter-title {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .nav-button:hover,
+    .experience-card:hover,
+    .stage-card:hover,
+    .pathway-card:hover,
+    .reason-card:hover {
+        transform: none;
+    }
+
+    .nav-bar a:hover {
+        transform: none;
+    }
+
+    /* 增加触摸目标大小 */
+    .nav-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .nav-bar a {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
