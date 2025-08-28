@@ -29,14 +29,17 @@
     }
 
     .navigation {
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 8px;
+        padding: 15px;
+        flex-wrap: wrap;
     }
 
     .nav-button {
-        padding: 10px 20px;
-        font-size: 0.9em;
+        padding: 8px 12px;
+        font-size: 0.85em;
+        min-width: 80px;
     }
 
     .chapter-title {
@@ -200,7 +203,7 @@
     }
 }
 
-/* 超小屏幕 (320px以下) */
+/* 超小屏幕 (320px以下) - 只在极小屏幕才垂直排列 */
 @media (max-width: 320px) {
     .container {
         padding: 5px;
@@ -235,7 +238,15 @@
     }
 
     .navigation {
+        flex-direction: column !important;
         padding: 12px;
+        gap: 8px;
+    }
+
+    .nav-button {
+        padding: 8px 16px;
+        font-size: 0.8em;
+        min-width: 60px;
     }
 }
 

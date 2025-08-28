@@ -267,10 +267,13 @@
             backdrop-filter: blur(10px);
             padding: 25px;
             border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
             align-items: center;
+            gap: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
         }
 
         .nav-button {
@@ -285,6 +288,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+            min-width: 140px;
+            justify-content: center;
         }
 
         .nav-button:hover {
@@ -349,8 +354,13 @@
             }
 
             .navigation {
-                flex-direction: column;
+                flex-direction: column !important;
                 gap: 15px;
+            }
+
+            .nav-button {
+                min-width: 120px;
+                padding: 10px 20px;
             }
 
             .chapter-title {
