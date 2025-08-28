@@ -1,7 +1,8 @@
 // 认证系统配置
 const AUTH_CONFIG = {
-    // 学员访问密码 (建议定期更换)
-    password: 'KC2024Q1',
+    // 验证配置 (已加密处理)
+    vh: '000000007d4ae735', // 验证哈希
+    sk: '2024_KC_SECURITY_SALT', // 安全密钥
     
     // 本地存储配置
     sessionKey: 'student_access_token',
@@ -59,8 +60,9 @@ class AuthManager {
             throw new Error(`密码错误次数过多，请等待 ${lockoutRemaining} 分钟后重试`);
         }
 
-        // 验证密码
-        if (inputPassword === AUTH_CONFIG.password) {
+        // 验证密码 - 使用哈希比较
+        const inputHash = this.hashPassword(inputPassword);
+        if (inputHash === AUTH_CONFIG.vh) {
             // 密码正确，清除尝试记录
             localStorage.removeItem(AUTH_CONFIG.attemptKey);
             
@@ -150,13 +152,48 @@ function showPasswordDialog(targetUrl) {
     }
 }
 
-// 简单的密码哈希函数（用于基本混淆）
-function simpleHash(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
+    // 安全的密码哈希函数
+    hashPassword(password) {
+        // 组合密码和盐
+        const combined = password + AUTH_CONFIG.sk + new Date().getFullYear();
+        
+        // 多轮哈希增强安全性
+        let hash = this.simpleHash(combined);
+        for (let i = 0; i < 3; i++) {
+            hash = this.simpleHash(hash.toString() + AUTH_CONFIG.sk);
+        }
+        
+        // 转换为固定长度的十六进制字符串
+        return this.toHexString(Math.abs(hash));
     }
-    return hash;
+
+    // 改进的哈希函数
+    simpleHash(str) {
+        let hash = 0;
+        if (str.length === 0) return hash;
+        
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // 转换为32位整数
+        }
+        return Math.abs(hash);
+    }
+
+    // 转换为十六进制字符串
+    toHexString(num) {
+        return num.toString(16).padStart(16, '0').slice(0, 16);
+    }
+
+    // 密码设置工具函数（仅用于生成新密码哈希，部署时可删除）
+    generatePasswordHash(newPassword) {
+        const hash = this.hashPassword(newPassword);
+        console.log(`新密码 "${newPassword}" 的哈希值: ${hash}`);
+        return hash;
+    }
+}
+
+// 简单的混淆函数（用于其他用途）
+function simpleObfuscate(str) {
+    return btoa(str).split('').reverse().join('');
 }
