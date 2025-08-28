@@ -109,6 +109,46 @@ class AuthManager {
             return 0;
         }
     }
+
+    // 安全的密码哈希函数
+    hashPassword(password) {
+        // 组合密码和盐
+        const combined = password + AUTH_CONFIG.sk + new Date().getFullYear();
+        
+        // 多轮哈希增强安全性
+        let hash = this.simpleHash(combined);
+        for (let i = 0; i < 3; i++) {
+            hash = this.simpleHash(hash.toString() + AUTH_CONFIG.sk);
+        }
+        
+        // 转换为固定长度的十六进制字符串
+        return this.toHexString(Math.abs(hash));
+    }
+
+    // 改进的哈希函数
+    simpleHash(str) {
+        let hash = 0;
+        if (str.length === 0) return hash;
+        
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // 转换为32位整数
+        }
+        return Math.abs(hash);
+    }
+
+    // 转换为十六进制字符串
+    toHexString(num) {
+        return num.toString(16).padStart(16, '0').slice(0, 16);
+    }
+
+    // 密码设置工具函数（仅用于生成新密码哈希，部署时可删除）
+    generatePasswordHash(newPassword) {
+        const hash = this.hashPassword(newPassword);
+        console.log(`新密码 "${newPassword}" 的哈希值: ${hash}`);
+        return hash;
+    }
 }
 
 // 创建全局认证管理器实例
@@ -149,47 +189,6 @@ function showPasswordDialog(targetUrl) {
         }
     } catch (error) {
         alert(error.message);
-    }
-}
-
-    // 安全的密码哈希函数
-    hashPassword(password) {
-        // 组合密码和盐
-        const combined = password + AUTH_CONFIG.sk + new Date().getFullYear();
-        
-        // 多轮哈希增强安全性
-        let hash = this.simpleHash(combined);
-        for (let i = 0; i < 3; i++) {
-            hash = this.simpleHash(hash.toString() + AUTH_CONFIG.sk);
-        }
-        
-        // 转换为固定长度的十六进制字符串
-        return this.toHexString(Math.abs(hash));
-    }
-
-    // 改进的哈希函数
-    simpleHash(str) {
-        let hash = 0;
-        if (str.length === 0) return hash;
-        
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // 转换为32位整数
-        }
-        return Math.abs(hash);
-    }
-
-    // 转换为十六进制字符串
-    toHexString(num) {
-        return num.toString(16).padStart(16, '0').slice(0, 16);
-    }
-
-    // 密码设置工具函数（仅用于生成新密码哈希，部署时可删除）
-    generatePasswordHash(newPassword) {
-        const hash = this.hashPassword(newPassword);
-        console.log(`新密码 "${newPassword}" 的哈希值: ${hash}`);
-        return hash;
     }
 }
 
