@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3章第11节：基础开发方法</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nav-bar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .nav-bar a {
+            color: #5a67d8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-bar a:hover {
+            background: #5a67d8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .home-link {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .chapter-breadcrumb {
+            color: #5a67d8;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .chapter-title {
+            color: #2d3748;
+            font-size: 2.2em;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .chapter-subtitle {
+            color: #4a5568;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        h2 {
+            color: #5a67d8;
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            font-weight: 600;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        h2::before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+            font-size: 0.9em;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.2em;
+            margin: 25px 0 12px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 18px;
+            font-size: 1.05em;
+            text-align: justify;
+        }
+
+        .metaphor-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #ff6b35;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
+            position: relative;
+        }
+
+        .metaphor-box::before {
+            content: "🏗️";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+        }
+
+        .metaphor-box h4 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            border-left: 4px solid #3182ce;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .important-note h4 {
+            color: #2b6cb0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .important-note p {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .key-point h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-left: 5px solid #e17055;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(225, 112, 85, 0.2);
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: "⚠️";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+        }
+
+        .warning-box h4 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .method-card h4 {
+            color: white;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .method-card .emoji {
+            font-size: 1.4em;
+        }
+
+        .method-card.development {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .method-card.verification {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .method-card.rest {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #2d3748;
+        }
+
+        .method-card.rest h4 {
+            color: #2d3748;
+        }
+
+        .timeline {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(162, 155, 254, 0.3);
+        }
+
+        .timeline h3 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-number {
+            background: white;
+            color: #6c5ce7;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h4 {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+        }
+
+        .checklist {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .checklist h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: #2d3748;
+            font-size: 1.05em;
+        }
+
+        .checklist li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            font-size: 1.1em;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding-left: 25px;
+            border-left: 4px solid #5a67d8;
+            margin: 25px 0;
+            background: #f7fafc;
+            padding: 20px 20px 20px 30px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 2px;
+            margin: 40px 0;
+        }
+
+        .navigation {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .nav-button.disabled {
+            background: #cbd5e0;
+            color: #a0aec0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .nav-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .science-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(116, 185, 255, 0.3);
+        }
+
+        .science-box h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .science-box ul {
+            padding-left: 20px;
+        }
+
+        .science-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .navigation {
+                flex-direction: column !important;
+                gap: 15px;
+            }
+
+            .nav-button {
+                min-width: 120px;
+                padding: 10px 20px;
+            }
+
+            .chapter-title {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="index.html" class="home-link">🏠 返回主页</a>
+            <div class="nav-links">
+                <a href="chapter-10.html">⬅️ 上一节</a>
+                <a href="chapter-12.html">下一节 ➡️</a>
+            </div>
+        </nav>
+
+        <main class="content">
+            <header class="chapter-header">
+                <div class="chapter-breadcrumb">第三章：激活训练 > 第11节</div>
+                <h1 class="chapter-title">基础开发方法</h1>
+                <p class="chapter-subtitle">建立神经连接的基础训练 - 方法篇</p>
+            </header>
+
+            <h2>什么是基础开发？</h2>
+            
+            <div class="metaphor-box">
+                <h4>🏗️ 打地基的比喻</h4>
+                <p>基础开发就像是为房子打地基一样，虽然看起来不起眼，但却是后续所有美好体验的基础。很多人急于体验高潮的快感，想要跳过这个阶段，结果往往事倍功半。</p>
+            </div>
+            
+            <p>想象一下学习乐器的过程。你不可能跳过基础练习直接演奏复杂的曲目，必须先练好基本功。乳首开发也是一样，基础开发就是你的"基本功"训练。</p>
+            
+            <div class="key-point">
+                <h4>🎯 基础开发的目标</h4>
+                <p>基础开发的目标很明确：建立最初的神经连接，让你的乳首从"完全没感觉"变成"有基本的舒适感"。这个过程可能不会带来强烈的快感，但它为后续的所有发展奠定了坚实的基础。</p>
+            </div>
+            
+            <p>不要小看这个阶段，很多人最终能够体验到美妙乳首高潮，都是从这个看似简单的基础开发开始的。</p>
+
+            <div class="section-divider"></div>
+
+            <h2>为什么选择滚动式作为主要方法？</h2>
+            
+            <p>在四种基本手法中，为什么选择滚动式作为基础开发的主要方法呢？这不是随意的选择，而是有科学依据的。</p>
+            
+            <div class="science-box">
+                <h4>🧠 科学依据</h4>
+                <ul>
+                    <li><strong>内部刺激：</strong>滚动式刺激的是乳首的内部组织，而不只是表面。这就像种树要深扎根一样，内部的开发会比表面的刺激更加稳定和持久。</li>
+                    <li><strong>适中强度：</strong>滚动式的刺激强度适中，既不会像轻擦式那样过于微弱而没有效果，也不会像抓挠式那样过于强烈而引起适应性。</li>
+                    <li><strong>易于掌握：</strong>滚动式比较容易掌握，不需要太多的技巧，也不需要特殊的环境，随时随地都可以进行。</li>
+                    <li><strong>效果稳定：</strong>滚动式带来的感受比较稳定，不像其他手法可能有时有感觉有时没感觉，更容易让你建立信心。</li>
+                </ul>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>具体的操作时间安排</h2>
+            
+            <h3>每日频次：2-7次</h3>
+            
+            <p>为什么是2-7次这个范围呢？这个数字不是拍脑袋想出来的，而是基于神经科学的原理。</p>
+            
+            <div class="important-note">
+                <h4>🌱 神经科学原理</h4>
+                <p>神经连接的建立需要重复刺激，但不是越多越好。就像浇花一样，少了植物会渴死，多了植物会淹死，只有适量才能让植物茁壮成长。</p>
+            </div>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4><span class="emoji">📉</span>最低限度</h4>
+                    <p>一天2次是最低限度，这个频率能够维持神经系统对这个部位的"记忆"。如果少于2次，神经可能会"忘记"这里的存在，前面的努力就白费了。</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4><span class="emoji">📈</span>理想频率</h4>
+                    <p>对于大多数人来说，一天3-4次是比较理想的频率。你可以安排在起床后、午休时、晚上睡前，还可以在其他方便的时候再加一次。</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4><span class="emoji">⚠️</span>上限警告</h4>
+                    <p>一天7次是上限，超过这个频率可能会引起过度刺激，让神经变得迟钝。就像听同一首歌听得太多会腻一样，过度的刺激会让效果适得其反。</p>
+                </div>
+            </div>
+            
+            <h3>每次时长：60秒左右</h3>
+            
+            <p>60秒听起来很短，但对于基础开发来说已经足够了。这不是马拉松，而是短跑冲刺。</p>
+            
+            <div class="key-point">
+                <h4>⏱️ 时间安排的优势</h4>
+                <ul>
+                    <li><strong>避免过度刺激：</strong>在开发初期，你的乳首还没有建立足够的神经连接，长时间的刺激不仅没有额外的好处，反而可能引起疲劳或者适应。</li>
+                    <li><strong>容易坚持：</strong>60秒随时都能挤出来，这样更容易养成习惯。如果每次需要很长时间，你可能会因为没时间而跳过练习。</li>
+                    <li><strong>灵活调整：</strong>60秒不是绝对的。如果你感觉特别好，可以延长到2-3分钟。如果感觉不太对，提前停止也没关系。</li>
+                </ul>
+            </div>
+            
+            <h3>时机选择的建议</h3>
+            
+            <div class="checklist">
+                <h3>⏰ 最佳时机</h3>
+                <ul>
+                    <li><strong>早上刚醒来：</strong>身体比较放松，心情也比较平静，容易专注于身体的感受</li>
+                    <li><strong>睡前：</strong>经过一天的劳累，身体需要放松，温柔的乳首刺激能够帮助你更好地进入睡眠状态</li>
+                    <li><strong>午休时间：</strong>如果方便的话，也可以进行一次，为下午的工作提供更好的精神状态</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <h4>⚠️ 避免的时机</h4>
+                <p>避免在非常疲劳、情绪不好或者时间紧张的时候进行。这种状态下的练习效果通常不佳，还可能产生负面联想。</p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>完整的开发周期</h2>
+            
+            <div class="timeline">
+                <h3>🔄 开发周期时间线</h3>
+                
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>开发期：2-4天</h4>
+                        <p>专心进行基础刺激的时间，按照上面说的频率和时长来进行滚动式刺激</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>验证期：乳首自慰</h4>
+                        <p>开发期结束后，需要进行一次相对完整的乳首自慰来"验证"开发效果</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>休息期：8-24小时</h4>
+                        <p>验证自慰结束后，需要给乳首一个休息恢复的时间，让身体巩固建立的神经连接</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="method-grid">
+                <div class="method-card development">
+                    <h4><span class="emoji">🔨</span>开发期</h4>
+                    <p>在这2-4天里，你需要按照上面说的频率和时长来进行滚动式刺激。除了基础的滚动式刺激，你也可以偶尔尝试其他手法，但要以滚动式为主。</p>
+                </div>
+                
+                <div class="method-card verification">
+                    <h4><span class="emoji">🔍</span>验证期</h4>
+                    <p>这次自慰可以使用第10小结介绍的四种手法，时间可以稍微长一些，大概15-30分钟。重点是感受乳首的反应是否比之前更敏感。</p>
+                </div>
+                
+                <div class="method-card rest">
+                    <h4><span class="emoji">😴</span>休息期</h4>
+                    <p>这个休息不是完全不碰，而是不进行专门的开发练习。8小时是最短的休息时间，24小时是比较充分的休息时间。</p>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>如何记录和评估进度？</h2>
+            
+            <p>建议你准备一个简单的记录本或者手机应用，记录每天的练习情况和感受。不需要记录得很详细，简单的几句话就够了。</p>
+            
+            <div class="important-note">
+                <h4>📝 记录示例</h4>
+                <p>比如："今天第3天，早上和晚上各练习1次，感觉比昨天稍微敏感一点"，或者"验证自慰，感觉还是不太明显，但比开始时稍微有点感觉"。</p>
+            </div>
+            
+            <div class="key-point">
+                <h4>📊 记录的好处</h4>
+                <ul>
+                    <li><strong>看到长期趋势：</strong>有时候日常的小变化你可能感受不到，但通过记录回顾，你会发现其实是在进步的</li>
+                    <li><strong>鼓励坚持：</strong>每完成几个周期，可以回顾一下记录，看看自己的进步情况</li>
+                    <li><strong>调整方法：</strong>通过记录可以帮你调整方法，找到最适合自己的节奏</li>
+                </ul>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>常见问题和调整建议</h2>
+            
+            <h3>如果完全没感觉怎么办？</h3>
+            
+            <div class="warning-box">
+                <h4>🔄 调整建议</h4>
+                <ul>
+                    <li>增加每次的时间到2-3分钟，或者增加每天的频次到5-6次</li>
+                    <li>尝试在更放松的环境中进行，比如洗完热水澡后</li>
+                    <li>检查一下手法是否正确，可能你的力度太轻或者太重</li>
+                </ul>
+            </div>
+            
+            <h3>如果感觉时有时无怎么办？</h3>
+            
+            <p>这是很正常的现象，说明神经连接正在建立过程中。就像收音机调台一样，刚开始信号可能不稳定，但慢慢会变清晰。</p>
+            
+            <div class="important-note">
+                <h4>⏳ 保持耐心</h4>
+                <p>这种情况下要保持耐心，继续按照既定的节奏进行。不要因为某一天没感觉就加大刺激强度，这样反而可能破坏正在形成的连接。</p>
+            </div>
+            
+            <h3>如果感觉太敏感怎么办？</h3>
+            
+            <div class="warning-box">
+                <h4>⚠️ 调整方法</h4>
+                <ul>
+                    <li>减少每天的频次，或者缩短每次的时间</li>
+                    <li>在开发期和休息期之间增加更长的休息时间</li>
+                    <li>过度敏感通常是临时的，随着神经系统的适应会逐渐稳定</li>
+                </ul>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>建立长期的习惯</h2>
+            
+            <p>基础开发不是一次性的任务，而是需要养成长期习惯的事情。就像刷牙洗脸一样，最好能够融入你的日常生活中。</p>
+            
+            <div class="checklist">
+                <h3>🔄 习惯建立建议</h3>
+                <ul>
+                    <li>可以把乳首开发和其他已有的习惯联系起来</li>
+                    <li>比如每次洗澡后进行一次，或者每天睡前进行一次</li>
+                    <li>这样更容易记住和坚持</li>
+                    <li>记住，一致性比强度更重要</li>
+                    <li>每天坚持轻微的练习，比偶尔进行一次强烈的练习效果更好</li>
+                </ul>
+            </div>
+            
+            <div class="quote">
+                相信你的身体，相信这个过程。每一次温柔的触摸都在为美好的未来播下种子。虽然现在看不到茂密的森林，但种子正在土壤中悄悄发芽。给它时间，给它耐心，你一定会收获属于自己的美好体验。
+            </div>
+        </main>
+
+        <div class="navigation">
+            <a href="chapter-10.html" class="nav-button">⬅️ 上一节</a>
+            <a href="index.html" class="nav-button">📚 章节目录</a>
+            <a href="chapter-12.html" class="nav-button">下一节 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.content');
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                content.style.transition = 'all 0.8s ease';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 200);
+        });
+
+        // 方法卡片交互效果
+        document.querySelectorAll('.method-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // 时间线项目交互效果
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // 比喻框强调效果
+        document.querySelectorAll('.metaphor-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
+

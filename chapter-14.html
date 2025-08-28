@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4章第3节：组合技法实战</title>
+    <link rel="stylesheet" href="mobile-optimization.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nav-bar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .nav-bar a {
+            color: #5a67d8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-bar a:hover {
+            background: #5a67d8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .home-link {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .chapter-breadcrumb {
+            color: #5a67d8;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .chapter-title {
+            color: #2d3748;
+            font-size: 2.2em;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .chapter-subtitle {
+            color: #4a5568;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        h2 {
+            color: #5a67d8;
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            font-weight: 600;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        h2::before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+            font-size: 0.9em;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.2em;
+            margin: 25px 0 12px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 18px;
+            font-size: 1.05em;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .highlight-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 236, 210, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 236, 210, 0.4);
+        }
+
+        .intro-card h4 {
+            color: #c53030;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .intro-card .emoji {
+            font-size: 1.4em;
+        }
+
+        .process-timeline {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .timeline-stage {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #5a67d8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-stage:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stage-number {
+            background: #5a67d8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .stage-title {
+            color: #2d3748;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .stage-time {
+            color: #4a5568;
+            font-size: 0.9em;
+            margin-left: auto;
+            background: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .combination-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(168, 237, 234, 0.3);
+        }
+
+        .combination-box h3 {
+            color: #234e52;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .technique-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .technique-card h4 {
+            color: #2d3748;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rest-importance {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            border-left: 4px solid #3182ce;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .rest-importance h4 {
+            color: #2b6cb0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .rest-importance p {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .key-insight {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #ff6b35;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .key-insight h4 {
+            color: #c53030;
+            margin-bottom: 15px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            border-left: 5px solid #e53e3e;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.2);
+        }
+
+        .warning-box h4 {
+            color: #c53030;
+            margin-bottom: 15px;
+        }
+
+        .personalization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .personalization-card {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(178, 245, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .personalization-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(178, 245, 234, 0.4);
+        }
+
+        .personalization-card h4 {
+            color: #234e52;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navigation {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .quote {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding-left: 25px;
+            border-left: 4px solid #5a67d8;
+            margin: 25px 0;
+            background: #f7fafc;
+            padding: 20px 20px 20px 30px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 2px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .intro-grid,
+            .technique-grid,
+            .personalization-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chapter-title {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="index.html" class="home-link">🏠 返回主页</a>
+            <div class="nav-links">
+                <a href="chapter-13.html">⬅️ 上一节</a>
+                <a href="chapter-15.html">下一节 ➡️</a>
+            </div>
+        </nav>
+
+        <main class="content">
+            <header class="chapter-header">
+                <div class="chapter-breadcrumb">第四章：快感连结 > 第3节</div>
+                <h1 class="chapter-title">组合技法实战</h1>
+                <p class="chapter-subtitle">滚动式主导流程、会阴+乳首组合、适当休息重要性</p>
+            </header>
+
+            <h2>从单一技巧到组合运用</h2>
+            
+            <p>经过前面的学习，你已经掌握了四种基本手法和阴茎链接法，现在是时候学会如何将这些技巧组合起来，发挥更大的威力了。</p>
+            
+            <div class="highlight-box">
+                <h3>🎼 技巧的交响乐</h3>
+                <p>这就像学会了单个汉字后要学习组词造句一样。单个技巧只能带来有限的效果，但当它们巧妙组合时，就能创造出令人惊喜的体验。组合技法不是简单的技巧堆叠，而是要让不同的刺激方式相互配合，形成一个和谐的整体。</p>
+            </div>
+            
+            <p>就像交响乐团演奏，每种乐器都有自己的声部，但最终要融合成美妙的音乐。掌握组合技法需要时间和练习，但一旦学会，你就能够根据当时的感受和需要，灵活调整刺激方式，获得最佳的体验效果。</p>
+
+            <div class="section-divider"></div>
+
+            <h2>滚动式主导的基础流程</h2>
+            
+            <p>这是最推荐初学者使用的组合流程，以滚动式为核心，辅以其他手法。就像一道菜以主料为中心，配菜起到调味和丰富口感的作用。</p>
+            
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <h4><span class="emoji">🏗️</span>为什么选择滚动式作为主导？</h4>
+                    <p>滚动式刺激的是乳首内部，带来的感觉比较稳定和持久，不容易因为外界干扰而中断。这就像建房子的主梁，必须足够稳固才能支撑整个结构。而且滚动式的感觉比较温和，不会过于强烈而让人分心，也不会太微弱而感受不到。</p>
+                </div>
+            </div>
+
+            <div class="process-timeline">
+                <h3>具体的操作流程</h3>
+                
+                <div class="timeline-stage">
+                    <div class="stage-header">
+                        <div class="stage-number">1</div>
+                        <div class="stage-title">激活唤醒</div>
+                        <div class="stage-time">5-8分钟</div>
+                    </div>
+                    <p>开始时用回转式进行全面的激活。从乳晕外围开始，慢慢向中心画圈，重复3-5轮。这个过程不要急躁，让整个胸部区域都"醒过来"。</p>
+                    <p>然后用轻擦式轻抚乳首表面2-3分钟，频率保持在每秒一次左右。这一步是为了让乳首表面变得敏感，为后续的刺激做准备。</p>
+                    <p><strong>注意：</strong>这个阶段不要用太强的刺激，目标是唤醒而不是达到高潮。就像运动前的热身，为正式训练做准备。</p>
+                </div>
+
+                <div class="timeline-stage">
+                    <div class="stage-header">
+                        <div class="stage-number">2</div>
+                        <div class="stage-title">主要刺激</div>
+                        <div class="stage-time">15-25分钟</div>
+                    </div>
+                    <p>进入滚动式刺激阶段。用拇指和中指轻夹乳首根部，开始左右转动。转动要慢而稳定，感受内部被温柔揉捏的感觉。</p>
+                    <p>每进行2-3分钟的滚动式后，停下来休息20秒。这个休息不是完全不动，而是可以轻抚胸部其他区域，或者简单地深呼吸。</p>
+                    <p>休息结束后继续滚动式，但可以稍微调整力度或者角度，给身体一些新的刺激。重复这个"刺激-休息"的循环。</p>
+                    <p><strong>关键指标：</strong>如果感到快感在积累，腰部开始有反应，或者呼吸变得急促，说明你正在朝正确的方向前进。</p>
+                </div>
+
+                <div class="timeline-stage">
+                    <div class="stage-header">
+                        <div class="stage-number">3</div>
+                        <div class="stage-title">冲刺提升</div>
+                        <div class="stage-time">5-10分钟</div>
+                    </div>
+                    <p>当感到快感积累到一定程度，可以在滚动式的基础上加入其他手法。比如偶尔用轻擦式刺激乳首顶端，或者隔着衣服用抓挠式。</p>
+                    <p>这些额外的刺激就像催化剂，能够在关键时刻推动快感进一步提升。但要注意不要过度使用，仍然以滚动式为主。</p>
+                    <p><strong>冲刺要点：</strong>如果感到快要达到高潮，可以稍微加快滚动的频率，或者增加一点力度。但记住，即使在冲刺阶段，温柔仍然比强烈更有效。</p>
+                </div>
+            </div>
+
+            <div class="rest-importance">
+                <h4>🎵 流程中的节奏掌握</h4>
+                <p>整个流程要有起伏感，不能始终保持同一强度。就像音乐有强弱变化一样，刺激也要有节奏起伏。开始时要轻柔，中间可以稍微增强，快感积累时再适当提升，但任何时候都不要超过"舒适"的界限。特别注意身体的反馈信号，身体的声音比任何教程都重要。</p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>会阴+乳首组合刺激法</h2>
+            
+            <p>这是一种更高级的组合技法，能够同时刺激两个重要的性感区域，产生相互增强的效果。</p>
+
+            <div class="combination-box">
+                <h3>什么是会阴？</h3>
+                <p>会阴是位于睾丸和肛门之间的区域，这里有丰富的神经末梢，而且通过刺激会阴可以间接影响前列腺。很多人不知道，会阴是男性身体上最容易产生强烈快感的区域之一。</p>
+                <p>会阴就像身体的一个"快感放大器"，当它被激活时，其他部位的感觉也会被增强。这就是为什么会阴+乳首的组合如此有效。</p>
+            </div>
+
+            <div class="technique-grid">
+                <div class="technique-card">
+                    <h4><span class="emoji">🎯</span>准备阶段</h4>
+                    <p>选择一个舒适的姿势，最好是躺着或者半躺着。确保两只手都能方便地接触到目标区域。</p>
+                    <p>先按照之前的方法进行乳首的基础激活，让乳首达到一定的敏感状态。这是基础，不能省略。</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4><span class="emoji">🤝</span>开始组合刺激</h4>
+                    <p>用一只手继续进行乳首的滚动式刺激，同时用另一只手的中指轻压会阴。不要用力按压，只是温柔地接触和轻抚。</p>
+                    <p>开始时可能感受不到会阴刺激的效果，这很正常。继续保持两种刺激，让身体慢慢适应这种双重感觉。</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4><span class="emoji">🌊</span>进阶配合</h4>
+                    <p>当基本的组合刺激熟练后，可以尝试让两种刺激形成某种节奏配合。比如乳首转动时会阴轻压，乳首停止时会阴抚摸。</p>
+                    <p>也可以尝试让两种刺激的强度相互呼应，让身体感受到完整的刺激波浪。</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 会阴刺激的注意事项</h4>
+                <p>会阴区域的皮肤比较敏感，不要用力过猛。开始时甚至可能感觉不到什么，这是正常的，需要耐心培养。手指要保持清洁，指甲要修剪整齐，避免刮伤皮肤。如果手指比较粗糙，建议涂一点润滑剂。如果感到任何不适或者疼痛，要立即停止。</p>
+            </div>
+
+            <div class="key-insight">
+                <h4>✨ 组合效果的识别</h4>
+                <p>当组合刺激开始生效时，你可能会感受到以下变化：整体的快感强度明显提升，感觉比单独刺激乳首时更强烈；快感的传播范围扩大，可能会影响到腰部、腹部甚至全身；达到高潮的速度可能会加快，或者高潮的强度会增加；身体的反应更加明显，比如呼吸急促、肌肉紧张或者不自主的扭动。</p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>休息间歇的重要性</h2>
+            
+            <p>很多人忽视了休息在组合技法中的重要作用。适当的休息不是浪费时间，而是为了让下一轮刺激更有效果。</p>
+
+            <div class="rest-importance">
+                <h4>⏰ 为什么需要20秒间歇？</h4>
+                <p>神经系统有个特点，就是对持续不变的刺激会逐渐适应，敏感度会下降。就像你进入一个有香味的房间，刚开始觉得很香，但时间长了就闻不到了。20秒的间歇能够让神经系统"重置"，恢复对刺激的敏感性。当你重新开始刺激时，感觉会比之前更强烈。这个时间长度是经过实践验证的最佳平衡点。</p>
+            </div>
+
+            <div class="technique-grid">
+                <div class="technique-card">
+                    <h4><span class="emoji">🌸</span>休息时做什么？</h4>
+                    <p>休息不是完全停止所有动作，而是转换到更温和的刺激方式。可以轻抚胸部的其他区域，比如乳晕周围或者胸部侧面。</p>
+                    <p>也可以进行深呼吸，让身体放松的同时保持对快感的觉察。深呼吸还能增加血液循环，提升整体的敏感度。</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4><span class="emoji">📊</span>如何判断休息时机？</h4>
+                    <p>当你感到刺激效果开始减弱，或者身体开始适应当前的刺激强度时，就是休息的时机。</p>
+                    <p>如果注意力开始分散，或者开始思考其他事情，也说明需要休息调整了。还有一个信号是如果你发现自己不自觉地加大刺激强度想要找回感觉，这时候应该休息而不是加强刺激。</p>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>个人化的调整和优化</h2>
+            
+            <p>每个人的身体反应都不同，需要根据自己的特点来调整组合技法。</p>
+
+            <div class="personalization-grid">
+                <div class="personalization-card">
+                    <h4><span class="emoji">⏱️</span>时间分配的调整</h4>
+                    <p>有些人可能需要更长的激活时间，有些人可能在冲刺阶段需要更多时间。根据自己的反应来调整各个阶段的时间分配。</p>
+                    <p>如果发现某个阶段特别有效，可以适当延长。如果某个阶段效果不明显，可以缩短或者调整方法。</p>
+                </div>
+
+                <div class="personalization-card">
+                    <h4><span class="emoji">🎚️</span>强度搭配的优化</h4>
+                    <p>不同的人对不同强度的刺激反应不同。有些人喜欢始终保持轻柔，有些人需要一定的强度变化。</p>
+                    <p>通过多次练习，找到最适合自己的强度搭配。记住，最强烈的刺激不一定是最有效的。</p>
+                </div>
+
+                <div class="personalization-card">
+                    <h4><span class="emoji">🔬</span>技法组合的创新</h4>
+                    <p>当你熟悉了基本的组合方法后，可以尝试创造属于自己的组合方式。比如加入不同的呼吸节奏，或者结合其他身体部位的刺激。</p>
+                    <p>记录自己的尝试和效果，逐步完善属于自己的最佳组合。这个探索过程本身也是享受身体的美妙旅程。</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                组合技法的掌握需要时间和练习，不要期望立即就能运用自如。就像学习开车一样，开始时可能会手忙脚乱，但熟练后就会变成自然而然的动作。保持耐心，享受这个学习过程，你的身体会给你最好的反馈和奖励。
+            </div>
+        </main>
+
+        <div class="navigation">
+            <a href="chapter-13.html" class="nav-button">⬅️ 上一节</a>
+            <a href="index.html" class="nav-button">📚 章节目录</a>
+            <a href="chapter-15.html" class="nav-button">下一节 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.content');
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                content.style.transition = 'all 0.8s ease';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 200);
+        });
+
+        // 卡片悬停效果
+        document.querySelectorAll('.intro-card, .technique-card, .personalization-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // 时间轴阶段交互效果
+        document.querySelectorAll('.timeline-stage').forEach(stage => {
+            stage.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+                this.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+            });
+            
+            stage.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(5px)';
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            });
+        });
+
+        // 组合框动画效果
+        document.querySelectorAll('.combination-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
